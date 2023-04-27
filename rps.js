@@ -10,7 +10,6 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toUpperCase();
     let result;
     if (playerSelection === computerSelection) {
         return "It's a tie!";
@@ -32,26 +31,31 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    let playerSelection = "";
+    const choiceButtons = document.querySelectorAll('.choice');
+    const resultsDiv = document.querySelector('#results');
+    
     let roundCounter = 0;
-    let scoreBoard = [0,0,0]; //win, loss, tie
+    let scoreBoard = [0, 0, 0]; //win, loss, tie
     let roundResult = "";
-    while (roundCounter < 5) {
-        playerSelection = prompt("Enter 'Rock', 'Paper', or 'Scissors':");
-        roundResult = playRound(playerSelection, getComputerChoice());
-        if (roundResult.includes("Win")) scoreBoard[0]++;
-        if (roundResult.includes("Lose")) scoreBoard[1]++;
-        if (roundResult.includes("tie")) scoreBoard[2]++;
-        console.log(roundResult);
-        roundCounter++;
-    }
-    console.log("\nFinal Results:");
-    let gameResult = (scoreBoard[0]>scoreBoard[1]) ? "You win!" : "You lose!";
-    if (scoreBoard[0] === scoreBoard[1]) gameResult = "It's a tie!";
-    console.log(gameResult);
-    console.log("Wins: "+scoreBoard[0]);
-    console.log("Losses: "+scoreBoard[1]);
-    console.log("Ties: "+scoreBoard[2]);
+
+    for (const choiceButton of choiceButtons) {
+
+        choiceButton.addEventListener('click', function() 
+        {
+            playerSelection = this.textContent;
+            computerSelection = getComputerChoice();
+            roundResult = playRound(playerSelection, computerSelection);
+            if (roundResult.includes("Win")) scoreBoard[0]++;
+            if (roundResult.includes("Lose")) scoreBoard[1]++;
+            if (roundResult.includes("tie")) scoreBoard[2]++;
+            
+            const newResult = document.createElement('p');
+            newResult.textContent = roundResult;
+
+            resultsDiv.appendChild(newResult);
+        });
+    };
+    
 }
 
 game();
