@@ -23,3 +23,11 @@ div.equalColumnsContainer > * {
 .scoreboard {
     text-align: center;
 }
+
+#finalResult {
+    font-size: 48px;
+}
+
+h1, h3 {
+    color: white;
+}
