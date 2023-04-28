@@ -33,6 +33,8 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     const choiceButtons = document.querySelectorAll('.choice');
     const resultsDiv = document.querySelector('#results');
+    const playerScore = document.querySelector('#playerScore');
+    const computerScore = document.querySelector('#computerScore');
     
     let roundCounter = 0;
     let scoreBoard = [0, 0, 0]; //win, loss, tie
@@ -49,6 +51,9 @@ function game() {
             if (roundResult.includes("Lose")) scoreBoard[1]++;
             if (roundResult.includes("tie")) scoreBoard[2]++;
             
+            playerScore.textContent = scoreBoard[0];
+            computerScore.textContent = scoreBoard[1];
+
             const newResult = document.createElement('p');
             newResult.textContent = roundResult;
 
